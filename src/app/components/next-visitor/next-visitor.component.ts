@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Visitor } from '../models/visitor';
+import { Visitor } from '../../models/visitor';
 
 @Component({
   selector: 'app-next-visitor',

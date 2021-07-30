@@ -1,12 +1,12 @@
 
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from 'angularx-social-login';
-import { StoreOwner } from '../models/storeOwner'
+import { StoreOwner } from '../../models/storeOwner'
 import { Router } from '@angular/router';
-import { Store } from '../models/store';
-import { Visitor } from '../models/visitor';
+import { Store } from '../../models/store';
+import { Visitor } from '../../models/visitor';
 import { IgxDialogComponent } from 'igniteui-angular/';
-import { StoreService } from '../service/store.service'
+import { StoreService } from '../../service/store.service'
 
 
 @Component({

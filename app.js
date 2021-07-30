@@ -12,7 +12,7 @@ app.use(cors());
 
 const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://gil4x6uu:e3p2M!D8b46YHNF@cluster0-tudov.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://gil4x6uu:e3p2M!D8b46YHNF@cluster0.tudov.gcp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";//
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -212,6 +212,7 @@ async function incrementVisitorsCount(storeId) {
     const collection = db.collection('storesDeatails');
     return collection.findOneAndUpdate({ id: storeId }, { $inc: { visitorsCount: 1 } });
 }
+
 async function addVisitorToStore(visitor, storeId) {
     const collection = db.collection('storesDeatails');
     return collection.findOneAndUpdate({ id: storeId }, { $push: { visitors: visitor } });

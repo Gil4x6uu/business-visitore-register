@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { IgxListComponent } from 'igniteui-angular';
-import { Visitor } from '../models/visitor';
+import { Visitor } from '../../models/visitor';
 
 @Component({
   selector: 'app-monitor-queues',

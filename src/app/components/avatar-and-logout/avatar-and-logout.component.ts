@@ -1,5 +1,5 @@
 import { Input, Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { StoreOwner } from '../models/storeOwner';
+import { StoreOwner } from '../../models/storeOwner';
 
 @Component({
   selector: 'app-avatar-and-logout',

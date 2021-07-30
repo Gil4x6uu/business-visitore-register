@@ -18,14 +18,10 @@ To install:
 ```bash
 npm install
 ```
-To Start Server:
+To start server and client side:
 ```bash
 npm start  
 ```
-And then
-```bash
-node app.js
-````
 To Visit App:
 [http://localhost:4200]
 

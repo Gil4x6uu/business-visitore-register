@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Store } from '../models/store';
+import { Store } from '../../models/store';
 
 @Component({
   selector: 'app-store-owner-card',

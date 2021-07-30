@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { IgxGridComponent, IGridEditEventArgs} from 'igniteui-angular/';
-import { Store } from '../models/store';
-import { Visitor } from '../models/visitor';
-import { StoreService } from '../service/store.service'
+import { Store } from '../../models/store';
+import { Visitor } from '../../models/visitor';
+import { StoreService } from '../../service/store.service'
 
 
 @Component({

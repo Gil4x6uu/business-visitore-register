@@ -9,9 +9,9 @@ import { Observable } from 'rxjs';
 export class SocialloginService {
   url;
   constructor(private http: HttpClient) { }
-  
-  
-  Savesresponse(responce): Observable<StoreOwner> {
+
+
+  public savesResponse(responce): Observable<StoreOwner> {
     this.url = 'http://localhost:3000/Login/Savesresponse';
     return this.http.post<StoreOwner>(this.url, responce);
   }
