@@ -38,37 +38,13 @@ client.connect(function (err) {
     db = client.db("stores");
 });
 
-
-function getAllStores() {
-    const collection = client.db("stores").collection('storesDeatails');
-    // Find some documents
-    collection.find({}).toArray(function (err, docs) {
-        assert.equal(err, null);
-        console.log("Found the following records");
-        console.log(docs)
-        return docs;
-    });
-}
-
 //return the stores
 app.get('/getStores', (req, res) => {
-    getAllStores()
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+  webController('getStores', req, res);
 });
 
-app.get('/getStoresById', (req, res) => {
-    getStoreById(req.query.id)
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+app.get('/getStoreById', (req, res) => {
+  webController('getStoreById', req, res);
 });
 
 
@@ -95,7 +71,7 @@ app.post('/addVisitorToStore', (req, res) => {
                 
             }
 
-        })
+        });
         res.end();
 
 })
@@ -113,7 +89,7 @@ app.post('/addStoreClientToStore', (req, res) => {
                     console.log(err);
                 })
         })
-})
+});
 
 app.post('/updateVisitorToStore', (req, res) => {
     verifyToken(req.body.storeId, req.headers.authorization)
@@ -188,6 +164,46 @@ app.post('/Login/Savesresponse', (req, res) => {
 });
 
 app.get('/stream', sse.init);
+
+
+function webController(string, req, res){
+  switch (string) {
+    case 'getStores':
+      getAllStores()
+        .then((result) => {
+          res.send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      break;
+    case 'getStoreById':
+      getStoreById(req.query.id)
+        .then((result) => {
+          res.send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      break;
+    default:
+      console.log(`Sorry, we are out of ${string}.`);
+}
+}
+
+/**
+ *
+ */
+function getAllStores() {
+  const collection = client.db("stores").collection('storesDeatails');
+  // Find some documents
+  collection.find({}).toArray(function (err, docs) {
+    assert.equal(err, null);
+    console.log("Found the following records");
+    console.log(docs);
+    return docs;
+  });
+}
 
 async function verifyToken(storeId, token) {
     const decodedToken = jwt.verify(token, privateKey);

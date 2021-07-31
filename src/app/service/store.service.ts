@@ -20,16 +20,16 @@ export class StoreService {
 
 
   getStores(): Observable<Store[]> {
-    return this.http.get<Store[]>(`${this.storeUrl}/getstores`)
+    return this.http.get<Store[]>(`${this.storeUrl}/getStores`)
       .pipe(
         tap(_ => console.log('fetched Stores')),
-        catchError(this.handleError<Store[]>('getstores', []))
+        catchError(this.handleError<Store[]>('getStores', []))
       );
   }
 
   getStoreById(id: number): Observable<StoreOwner> {
     const params = new HttpParams().set('id', id.toString());
-    return this.http.get<StoreOwner>(`${this.storeUrl}/getStoresById`, { params })
+    return this.http.get<StoreOwner>(`${this.storeUrl}/getStoreById`, { params })
       .pipe(
         tap(_ => console.log('fetched Store by ID')),
         catchError(this.handleError<StoreOwner>('getStoresById/:' + id))

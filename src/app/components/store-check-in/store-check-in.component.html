@@ -7,10 +7,10 @@
       </igx-input-group>
     </div>
     <div class="form-igxButton">
-      <button igxButton="outlined" (click)="getStoreById(storeId)">Check in to store</button>
+      <button igxButton="outlined" (click)="checkIfStoreExist(storeId)">Check in to store</button>
     </div>
     <div class="form-igxButton-small-screen">
-      <button igxButton="outlined" (click)="getStoreById(storeId)">Check in</button>
+      <button igxButton="outlined" (click)="checkIfStoreExist(storeId)">Check in</button>
     </div>
   </form>
 </div>
@@ -19,12 +19,12 @@
    Please try again </span>
 </div>
 <div>
-  <div class="checkInCard">
+  <div class="dialogNewRecord">
     <igx-dialog #dialog1 title="CheckIn">
     <igx-card>
-      <igx-card-header> Check In to  </igx-card-header>
+      <igx-card-header *ngIf="store"> Check In to {{store.storeName}} </igx-card-header>
       <igx-card-content>
-        <form class="input-group-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <form class="input-group-form" [formGroup]="userForm" (ngSubmit)="onCheckinFormSubmit()">
           <igx-input-group class="input-group-form">
             <label igxLabel class="igxLabel" for="firstName"> First Name </label>
             <input igxInput id="firstName" name="firstName" type="text" formControlName="firstName" required>

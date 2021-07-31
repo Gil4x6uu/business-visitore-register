@@ -22,7 +22,6 @@ export class StoreCheckInComponent implements OnInit {
 
   public store: Store;
   public storeId: number;
-  private stores: Store[];
   public userForm: FormGroup;
   private visitorInfo: Visitor;
   public thankYou: boolean;
@@ -38,7 +37,11 @@ export class StoreCheckInComponent implements OnInit {
     });
   }
 
-  getStoreById(id: number): void {
+  /**
+   * Checks if store exist and if true open the checkin form modal
+   * @param id
+   */
+  checkIfStoreExist(id: number): void {
     this.storeService.getStoreById(id)
       .subscribe(store => {
         this.store = store[0];
@@ -52,7 +55,10 @@ export class StoreCheckInComponent implements OnInit {
       });
   }
 
-  public onSubmit(): void {
+  /**
+   * Checkin form submit
+   */
+  public onCheckinFormSubmit(): void {
     if (this.userForm.invalid === true) {
       return;
     } else {
@@ -67,6 +73,9 @@ export class StoreCheckInComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   */
   public goBackToCheckInForm(): void {
     this.storeId = null;
     this.store = null;
