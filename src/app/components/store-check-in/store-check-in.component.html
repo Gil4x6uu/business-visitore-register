@@ -1,9 +1,9 @@
-<div *ngIf="!store && !thankYou">
+<div *ngIf="!thankYou">
   <form>
     <div class="form-group">
       <igx-input-group>
-        <input igxInput name="storeId" type="text" [(ngModel)]="storeId" required="required" />
-        <label igxLabel for="storeId">{{this.labelText}}</label>
+        <input igxInput name="storeId" type="text" [(ngModel)]="storeId" required="required"/>
+        <label igxLabel>{{this.labelText}}</label>
       </igx-input-group>
     </div>
     <div class="form-igxButton">
@@ -14,40 +14,41 @@
     </div>
   </form>
 </div>
-<div class="worng-store-id" *ngIf="worngStoreId">
+<div class="worng-store-id" *ngIf="wrongStoreId">
   <span>Worng store ID<br> 
    Please try again </span>
 </div>
-<div *ngIf="store && !thankYou">
+<div>
   <div class="checkInCard">
+    <igx-dialog #dialog1 title="CheckIn">
     <igx-card>
-      <igx-card-header> Check In to {{store.store_name}} </igx-card-header>
+      <igx-card-header> Check In to  </igx-card-header>
       <igx-card-content>
         <form class="input-group-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
           <igx-input-group class="input-group-form">
-            <label igxLabel class="igxLabel" for="first_name"> First Name </label>
-            <input igxInput name="first_name" type="text" formControlName="first_name" required>
+            <label igxLabel class="igxLabel" for="firstName"> First Name </label>
+            <input igxInput id="firstName" name="firstName" type="text" formControlName="firstName" required>
             <igx-suffix>
               <igx-icon isActive="true">person</igx-icon>
             </igx-suffix>
           </igx-input-group>
           <igx-input-group class="input-group-form">
-            <label igxLabel for="last_name"> Last Name </label>
-            <input igxInput name="last_name" type="text" formControlName="last_name" required>
+            <label igxLabel for="lastName"> Last Name </label>
+            <input igxInput id="lastName" name="lastName" type="text" formControlName="lastName" required>
             <igx-suffix>
               <igx-icon isActive="true">person</igx-icon>
             </igx-suffix>
           </igx-input-group>
           <igx-input-group class="input-group-form">
             <label igxLabel for="phone"> Phone </label>
-            <input igxInput name="phone" type="text" formControlName="phone" required>
+            <input igxInput id="phone" name="phone" type="text" formControlName="phone" required>
             <igx-suffix>
               <igx-icon isActive="true">phone</igx-icon>
             </igx-suffix>
           </igx-input-group>
           <igx-input-group class="input-group-form">
             <label igxLabel for="email"> E-mail </label>
-            <input igxInput name="email" type="text" formControlName="email" required>
+            <input igxInput id="email" name="email" type="text" formControlName="email" required>
             <igx-suffix>
               <igx-icon>email</igx-icon>
             </igx-suffix>
@@ -57,6 +58,7 @@
         </form>
       </igx-card-content>
     </igx-card>
+    </igx-dialog>
   </div>
 </div>
 <div *ngIf="thankYou">

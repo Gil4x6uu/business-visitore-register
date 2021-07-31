@@ -50,32 +50,32 @@
 </div>
 <div class="dialogNewRecord">
   <igx-dialog #dialogAdd title="ADD VISITOR" [rightButtonLabel]="'Add'" [leftButtonLabel]="'Cancel'"
-    (onLeftButtonSelect)="cancel()" (onRightButtonSelect)="addRow()">
+    (onLeftButtonSelect)="cancel(dialogAdd)" (onRightButtonSelect)="addVisitorManually(dialogAdd)">
     <div class="dialogNewRecord">
       <igx-input-group class="input-group-form">
         <label igxLabel class="igxLabel" for="first_name"> First Name </label>
-        <input igxInput name="first_name" type="text" [(ngModel)]="visitor.first_name" required>
+        <input igxInput id="first_name" name="first_name" type="text" [(ngModel)]="visitor.first_name" required>
         <igx-suffix>
           <igx-icon isActive="true">person</igx-icon>
         </igx-suffix>
       </igx-input-group>
       <igx-input-group class="input-group-form">
         <label igxLabel for="last_name"> Last Name </label>
-        <input igxInput name="last_name" type="text" [(ngModel)]="visitor.last_name" required>
+        <input igxInput id="last_name" name="last_name" type="text" [(ngModel)]="visitor.last_name" required>
         <igx-suffix>
           <igx-icon isActive="true">person</igx-icon>
         </igx-suffix>
       </igx-input-group>
       <igx-input-group class="input-group-form">
         <label igxLabel for="phone"> Phone </label>
-        <input igxInput name="phone" type="text" [(ngModel)]="visitor.phone" required>
+        <input igxInput id="phone" name="phone" type="text" [(ngModel)]="visitor.phone" required>
         <igx-suffix>
           <igx-icon isActive="true">phone</igx-icon>
         </igx-suffix>
       </igx-input-group>
       <igx-input-group class="input-group-form">
         <label igxLabel for="email"> E-mail </label>
-        <input igxInput name="email" type="text" [(ngModel)]="visitor.email" required>
+        <input igxInput id="email" name="email" type="text" [(ngModel)]="visitor.email" required>
         <igx-suffix>
           <igx-icon>email</igx-icon>
         </igx-suffix>

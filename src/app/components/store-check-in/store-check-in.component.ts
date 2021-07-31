@@ -1,41 +1,41 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { StoreService } from '../../service/store.service';
-import { Store } from '../../models/store';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Visitor } from '../../models/visitor';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {StoreService} from '../../service/store.service';
+import {Store} from '../../models/store';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Visitor} from '../../models/visitor';
+import {IgxDialogComponent, IgxDialogModule} from 'igniteui-angular';
+
 @Component({
   selector: 'app-store-check-in',
   templateUrl: './store-check-in.component.html',
   styleUrls: ['./store-check-in.component.scss']
 })
 export class StoreCheckInComponent implements OnInit {
-  store: Store;
-  storeId: number;
-  stores: Store[];
-  userForm: FormGroup;
-  visitorInfo: Visitor;
-  todayTime: Date;
-  thankYou: boolean;
-  worngStoreId: boolean;
-  labelText = 'ID';
+  @ViewChild('dialog1', { read: IgxDialogComponent, static: true })
+  public dialog: IgxDialogComponent;
+
   constructor(
     private storeService: StoreService,
-    private formBuilder: FormBuilder
-  ) {
+    private formBuilder: FormBuilder) {
+
+  }
+
+  public store: Store;
+  public storeId: number;
+  private stores: Store[];
+  public userForm: FormGroup;
+  private visitorInfo: Visitor;
+  public thankYou: boolean;
+  public wrongStoreId: boolean;
+  public labelText = 'ID';
+
+  ngOnInit() {
     this.userForm = this.formBuilder.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       phone: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       email: ['', [Validators.email]],
     });
-  }
-
-
-
-
-  getStores(): void {
-    this.storeService.getStores()
-      .subscribe(stores => this.stores = stores);
   }
 
   getStoreById(id: number): void {
@@ -43,23 +43,17 @@ export class StoreCheckInComponent implements OnInit {
       .subscribe(store => {
         this.store = store[0];
         if (this.store === undefined) {
-          this.labelText = 'Worng Store ID';
+          this.labelText = 'Wrong Store ID';
           this.storeId = null;
         } else {
+          this.dialog.open();
           this.labelText = 'ID';
         }
       });
   }
 
-  isStoreExicst(): void {
-    if (this.store) {
-
-    }
-  }
-
-
-  onSubmit() {
-    if (this.userForm.invalid == true) {
+  public onSubmit(): void {
+    if (this.userForm.invalid === true) {
       return;
     } else {
       this.visitorInfo = new Visitor(this.userForm.value);
@@ -67,20 +61,17 @@ export class StoreCheckInComponent implements OnInit {
 
       this.storeService.addVisitoreToStore(this.visitorInfo, this.store.id)
         .subscribe(message => {
+          this.thankYou = true;
+          this.dialog.close();
         });
-      this.thankYou = true;
     }
   }
-  goBackToCheckInForm() {
+
+  public goBackToCheckInForm(): void {
     this.storeId = null;
-    this.userForm.reset();
     this.store = null;
+    // this.userForm.reset();
     this.thankYou = false;
+    this.dialog.close();
   }
-
-  ngOnInit() {
-
-
-  }
-
 }

@@ -1,4 +1,3 @@
-
 @import '~igniteui-angular/lib/core/styles/themes/index';
 $primary: #3a5199 !default;
 $secondary: white !default;
@@ -16,8 +15,6 @@ $app-palette: igx-palette($primary, $secondary);
   font-family: "Kollektif";
   src: url("./assets/fonts/Kollektif/Kollektif.ttf");
 }
-
-
 
 $custom-button-theme: igx-button-theme(
     $raised-text-color: #fdfdfd,

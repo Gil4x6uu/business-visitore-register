@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -12,7 +13,7 @@ app.use(cors());
 
 const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://gil4x6uu:e3p2M!D8b46YHNF@cluster0.tudov.gcp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";//
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 

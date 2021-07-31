@@ -1,68 +1,69 @@
 @import '../../../../node_modules/igniteui-angular/lib/core/styles/themes/index';
 
 .input-group-form {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-    margin-bottom: 24px;
-    padding: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  margin-bottom: 24px;
+  padding: 12px;
 }
 
 
-
-igx-icon{
-    margin-bottom: 10px;
-    size: 120px;
+igx-icon {
+  margin-bottom: 10px;
+  size: 120px;
 }
 
-label{
-    font-size: small;
-    margin-bottom: 5px;
+label {
+  font-size: small;
+  margin-bottom: 5px;
 }
 
-.worng-store-id{
-    color: red;
-    font-weight: 600;
+.worng-store-id {
+  color: red;
+  font-weight: 600;
 
 }
 
-.form-igxButton{
-    button{
-        width:12rem
-    }
+.form-igxButton {
+  button {
+    width: 12rem
+  }
 }
-.form-igxButton-small-screen{
-    button{
-        display: none;
-    }
+
+.form-igxButton-small-screen {
+  button {
+    display: none;
+  }
 }
 
 .dialogNewRecord {
-    margin: 10px;
-    padding: 10px;
-    #discontinued {
-    margin-top: 15px; 
-    }
+  margin: 10px;
+  padding: 10px;
+
+  #discontinued {
+    margin-top: 15px;
+  }
 }
 
 @media screen and (max-width: 800px) {
-    .form-igxButton{
-        button{
-            width:10rem;
-            display: none;
-        }
+  .form-igxButton {
+    button {
+      width: 10rem;
+      display: none;
     }
-    .form-igxButton-small-screen{
-        button{
-            display: block;
-            width:10rem;
-        }
+  }
+  .form-igxButton-small-screen {
+    button {
+      display: block;
+      width: 10rem;
     }
-    
-    .checkInCard{
-        position: relative;
-         left: 50%;
-         transform: translate(-50%, -50%);
-          width:200px; 
-    }
+  }
+
+  .checkInCard {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+  }
 }
 
 

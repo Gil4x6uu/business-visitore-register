@@ -6,7 +6,7 @@ font-family: Kollektif;
 .header {
   padding: 5px;
   text-align: center;
-  background-color: #2f2e33;  
+  background-color: #2f2e33;
 }
 .footer {
   padding: 20px;
@@ -31,12 +31,12 @@ font-family: Kollektif;
   border-style: solid;
   border-width: 5px;
   border-color: tomato;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);             
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 2rem;
 }
 
 .right-features{
- 
+
   border-style: solid;
   border-width: 5px;
   border-color: #3a5199;
@@ -55,15 +55,15 @@ font-family: Kollektif;
 
 .aside-1 {
    position: relative;
-   background-color:tomato; 
-   flex: 50%; 
+   background-color:tomato;
+   flex: 50%;
 }
 
 .aside-2 {
    position: relative;
-   background-color: #3a5199; 
+   background-color: #3a5199;
    flex: 50%;
-   
+
 }
 .login-button{
   position: absolute;
@@ -92,9 +92,9 @@ h4{
 
 
 @media screen and (max-width: 800px) {
-  .features {   
+  .features {
     flex-flow: column wrap;
-    
+
   }
   .aside{
     flex-flow: column wrap ;
@@ -108,7 +108,7 @@ h4{
   .right-features{
     margin-top: 10px;
   }
-  
+
   .check-in-input{
     width: 30%;
     height: auto;

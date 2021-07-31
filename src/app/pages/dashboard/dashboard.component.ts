@@ -1,12 +1,12 @@
 
-import { Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from 'angularx-social-login';
-import { StoreOwner } from '../../models/storeOwner'
+import { StoreOwner } from '../../models/storeOwner';
 import { Router } from '@angular/router';
 import { Store } from '../../models/store';
 import { Visitor } from '../../models/visitor';
 import { IgxDialogComponent } from 'igniteui-angular/';
-import { StoreService } from '../../service/store.service'
+import { StoreService } from '../../service/store.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { StoreService } from '../../service/store.service'
 
 
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   public storeOwner = new StoreOwner();
   public store: Store;
   public visitors: Visitor[];
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   public nextVisitors: Visitor;
   public visitor: Visitor;
   public checkForDateInterval;
- 
+
   constructor(
     public OAuth: AuthService,
     private router: Router,
@@ -35,7 +35,8 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
-    localStorage.setItem("lastKnownDate", new Date().toLocaleString())
+    // Start interval that checks if new day started for the current visitors queue
+    localStorage.setItem('lastKnownDate', new Date().toLocaleString());
     this.checkForDateInterval = setInterval(this.checkForDate, 50000);
     this.storeOwner = JSON.parse(localStorage.getItem('storeOwner'));
     this.store = JSON.parse(localStorage.getItem('store'));
@@ -48,75 +49,111 @@ export class DashboardComponent implements OnInit {
     this.initStream();
   }
 
+  ngOnDestroy() {
+    if (this.checkForDateInterval) {
+      clearInterval(this.checkForDateInterval);
+    }
+  }
 
-onStoreOwnerLoggedOut(){
+  /**
+   *
+   */
+  public onStoreOwnerLoggedOut(): void {
   this.logout();
 }
 
-  onVisitorRemoveFromQueue(rowId: number) {
+  /**
+   * Remove visitor from local queue
+   * @param rowId
+   */
+ public onVisitorRemoveFromQueue(rowId: number): void {
     this.todayVisitors.splice(rowId, 1);
     this.todayVisitors = this.todayVisitors.slice();
     this.nextVisitors = this.todayVisitors[0];
   }
-  
-  onLogoutEmit(){
+
+  /**
+   * Emits from app-avatar-and-logout
+   */
+  onLogoutEmit() {
     this.logout();
   }
 
-
-
-
-  initStream() {
+  /**
+   * Open socket for server side events
+   */
+  private initStream(): void {
     const stream = new EventSource('http://localhost:3000/stream');
     stream.onmessage = (event) => {
-      if (event.data !== "null") {
+      if (event.data !== 'null') {
+        // Updates the new visitors list
         this.store = (JSON.parse(event.data))[0];
         localStorage.setItem('store', JSON.stringify(this.store));
         this.visitors = this.store.visitors;
         this.visitors.map((visitor, index) => {
           visitor.id = index;
         });
-        const lastVisitor: Visitor = this.visitors[(this.visitors.length) - 1]
+
+        // Update the Queue list
+        const lastVisitor: Visitor = this.visitors[(this.visitors.length) - 1];
         this.todayVisitors = this.todayVisitors.slice();
         this.todayVisitors.push(lastVisitor);
         this.nextVisitors = this.todayVisitors[0];
-      }
-      else {
-        alert("No Access - please log in again -  visitor not added");
+      } else {
+        alert('No Access - please log in again -  visitor not added');
         this.logout();
       }
-    }
+    };
 
   }
 
-  public addRow() {
+  /**
+   * Add visitor to store
+   */
+  public addVisitorManually(dialog: any): void {
     this.visitor.time = new Date().toLocaleString();
     this.storeService.addVisitoreToStore(this.visitor, this.store.id)
       .subscribe(message => {
       });
-    this.cancel();
+    if (dialog) {
+      dialog.close();
+    }
   }
 
-  public cancel() {
-    //this.dialog.close();
+  /**
+   * cancel button of add visitor modal
+   */
+  public cancel(dialog: any): void {
+    if (dialog) {
+      dialog.close();
+    }
     this.visitor = new Visitor();
   }
-  // Interval that checks if today become tomorrow
-  checkForDate() {
-    const now = (new Date().toLocaleString().split(","))[0];
-    const lastKnownDate = (localStorage.getItem("lastKnownDate").split(","))[0];
-    console.log(`now is:${now} and last known date is:${lastKnownDate}`)
-    if (now != lastKnownDate) {
-      console.log(`inside if statment ---- now is:${now} and last known date is:${lastKnownDate}`)
+
+  /**
+   * Interval that checks if days has changed
+   * If day changed we init the todayVisitors array
+   */
+  private checkForDate(): void {
+    const now = (new Date().toLocaleString().split(','))[0];
+    const lastKnownDate = (localStorage.getItem('lastKnownDate').split(','))[0];
+    console.log(`now is:${now} and last known date is:${lastKnownDate}`);
+    if (now !== lastKnownDate) {
+      console.log(`inside if statment ---- now is:${now} and last known date is:${lastKnownDate}`);
       this.todayVisitors = [];
     }
   }
 
-  logout() {
-    clearInterval(this.checkForDateInterval);
+  /**
+   * Logout store owner and clear interval
+   */
+  public logout(): void {
+    if (this.checkForDateInterval) {
+      clearInterval(this.checkForDateInterval);
+    }
     localStorage.clear();
     this.OAuth.signOut().then(data => {
-      this.router.navigate([`mainScreen`]);
+      this.router.navigate([``]);
     });
   }
 }
