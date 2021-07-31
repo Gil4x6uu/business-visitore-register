@@ -1,5 +1,4 @@
-<igx-grid #myGrid [displayDensity]="'cosy'" [data]="visitors" [paging]="true" [perPage]="10" [primaryKey]="'id'"
-  width="100%" height="auto" (onRowEdit)="editDone($event)" [rowEditable]="true">
+<igx-grid #myGrid [displayDensity]="'cosy'" [data]="visitors" [paging]="true" [perPage]="10" [primaryKey]="'id'"  width="100%" height="auto" (onRowEdit)="editDone($event)" [rowEditable]="true">
   <igx-column field="id" header="Id" editable="false" sortable="true"></igx-column>
   <igx-column field="first_name" header="First name" [dataType]="'string'"></igx-column>
   <igx-column field="last_name" header="Last name" [dataType]="'string'"></igx-column>

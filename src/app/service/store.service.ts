@@ -19,15 +19,7 @@ export class StoreService {
   ) { }
 
 
-  getStores(): Observable<Store[]> {
-    return this.http.get<Store[]>(`${this.storeUrl}/getStores`)
-      .pipe(
-        tap(_ => console.log('fetched Stores')),
-        catchError(this.handleError<Store[]>('getStores', []))
-      );
-  }
-
-  getStoreById(id: number): Observable<StoreOwner> {
+  public getStoreById(id: number): Observable<StoreOwner> {
     const params = new HttpParams().set('id', id.toString());
     return this.http.get<StoreOwner>(`${this.storeUrl}/getStoreById`, { params })
       .pipe(
@@ -36,7 +28,7 @@ export class StoreService {
       );
   }
 
-  addVisitoreToStore(visitor: Visitor, storeId: number): Observable<Store> {
+  public  addVisitoreToStore(visitor: Visitor, storeId: number): Observable<Store> {
 
     return this.http.post<Store>(`${this.storeUrl}/addVisitorToStore`, { visitor, storeId })
       .pipe(
@@ -45,8 +37,17 @@ export class StoreService {
       );
   }
 
+  public checkInVisitorToStore(visitor: Visitor, storeId: number): Observable<Store> {
 
-  updateVisitoreToStore(visitor: Visitor, storeId: number): Observable<Store> {
+    return this.http.post<Store>(`${this.storeUrl}/checkInVisitor`, { visitor, storeId })
+      .pipe(
+        tap(_ => console.log(`Visitor:${visitor.first_name} ${visitor.last_name} added to store with id:${storeId}`)),
+        catchError(this.handleError<Store>('addVisitorToStore: ' + visitor.id))
+      );
+  }
+
+
+  public updateVisitorToStore(visitor: Visitor, storeId: number): Observable<Store> {
 
     return this.http.post<Store>(`${this.storeUrl}/updateVisitorToStore`, { visitor, storeId })
       .pipe(

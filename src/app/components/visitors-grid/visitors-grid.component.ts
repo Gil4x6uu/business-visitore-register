@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { IgxGridComponent, IGridEditEventArgs} from 'igniteui-angular/';
 import { Store } from '../../models/store';
 import { Visitor } from '../../models/visitor';
-import { StoreService } from '../../service/store.service'
+import { StoreService } from '../../service/store.service';
 
 
 @Component({
@@ -16,25 +16,24 @@ export class VisitorsGridComponent implements OnInit {
   @Input() store: Store;
   @Input() visitors: Visitor[];
   @Output() logoutEvent = new EventEmitter<boolean>();
-  
+
   @ViewChild('myGrid', { read: IgxGridComponent })
   public gridRowEdit: IgxGridComponent;
-  
+
   constructor(private storeService: StoreService) { }
 
   ngOnInit() {
   }
-  
+
   editDone(event: IGridEditEventArgs) {
     const newRow = event.newValue;
-    this.storeService.updateVisitoreToStore(newRow, this.store.id)
+    this.storeService.updateVisitorToStore(newRow, this.store.id)
       .subscribe(store => {
         if (store === undefined) {
-          alert("Something is worng you are logut");
+          alert('Something is worng you are logut');
           this.logoutEvent.emit();
 
-        }
-        else {
+        } else {
           this.store = store[0];
           this.visitors = this.store.visitors;
           this.visitors.map((visitor, index) => {
@@ -43,6 +42,6 @@ export class VisitorsGridComponent implements OnInit {
           localStorage.setItem('store', JSON.stringify(this.store));
         }
 
-      })
+      });
   }
 }

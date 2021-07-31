@@ -64,8 +64,7 @@ export class StoreCheckInComponent implements OnInit {
     } else {
       this.visitorInfo = new Visitor(this.userForm.value);
       this.visitorInfo.time = new Date().toLocaleString();
-
-      this.storeService.addVisitoreToStore(this.visitorInfo, this.store.id)
+      this.storeService.checkInVisitorToStore(this.visitorInfo, this.store.id)
         .subscribe(message => {
           this.thankYou = true;
           this.dialog.close();
